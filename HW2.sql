@@ -62,7 +62,7 @@ CREATE TABLE pharmacy
 (
 	phar_name 	VARCHAR(50) 	NOT NULL,
 	phone_num 	VARCHAR(20) 	NOT NULL,
-	type 		VARCHAR(100) 		NOT NULL
+	type 		VARCHAR(100) 	NOT NULL
 );
 CREATE TABLE instore
 (
@@ -93,7 +93,7 @@ CREATE TABLE contract
 	brand_name 		VARCHAR(50) NOT NULL REFERENCES drugcompany(brand_name),
 	contract_text	VARCHAR(5000),
 	supervisor		VARCHAR(50) NOT NULL,
-	start_date		DATE NOT NULL,
-	end_date		DATE NOT NULL,
+	start_date		DATE 		NOT NULL,
+	end_date		DATE 		NOT NULL,
 	PRIMARY KEY (phar_name,brand_name)
 );
