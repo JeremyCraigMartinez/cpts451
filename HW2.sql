@@ -6,12 +6,12 @@ CREATE TABLE clinic
 );
 CREATE TABLE doctor
 (
-	phys_ssn 	INTEGER 	NOT NULL PRIMARY KEY,
-	name 		VARCHAR(50) NOT NULL,
-	specialty 	VARCHAR(50),
-	experience 	VARCHAR(100),
-	clinic_name VARCHAR(50),
-	clinic_city VARCHAR(50),
+	phys_ssn 	INTEGER 		NOT NULL PRIMARY KEY,
+	name 		VARCHAR(50) 	NOT NULL,
+	specialty 	VARCHAR(50),	NULL,
+	experience 	VARCHAR(100),	NULL,
+	clinic_name VARCHAR(50),	NOT NULL
+	clinic_city VARCHAR(50),	NOT NULL
 	KEY clinic_id (clinic_name,clinic_city),
 	FOREIGN KEY (clinic_id) REFERENCES clinic (name,city)
 );
@@ -21,17 +21,17 @@ CREATE TABLE patient
 	age 			INTEGER 		NOT NULL,
 	name 			VARCHAR 		NOT NULL,
 	address 		VARCHAR(100)	NOT NULL,
-	primary_phys 	VARCHAR(50),
+	primary_phys 	VARCHAR(50),	NULL,
 	UNIQUE INDEX address_UNIQUE (address ASC),
 	KEY primary_phys (primary_phys),
 	FOREIGN KEY (primary_phys) REFERENCES doctor (phys_ssn)
 );
 CREATE TABLE prescription
 (
-	pres_num 	INTEGER NOT NULL,
-	pres_date 	DATE 	NOT NULL,
-	clinic_name VARCHAR(50),
-	clinic_city VARCHAR(50),
+	pres_num 	INTEGER 		NOT NULL,
+	pres_date 	DATE 			NOT NULL,
+	clinic_name VARCHAR(50),	NOT NULL
+	clinic_city VARCHAR(50),	NOT NULL
 	UNIQUE INDEX pres_num_UNIQUE (pres_num ASC),
 	KEY clinic_id (clinic_name,clinic_city),
 	FOREIGN KEY (clinic_id) REFERENCES clinic (name,city)
@@ -89,11 +89,11 @@ CREATE TABLE sell
 );
 CREATE TABLE contract
 (
-	phar_name 		VARCHAR(50)	NOT NULL REFERENCES pharmacy(phar_name),
-	brand_name 		VARCHAR(50) NOT NULL REFERENCES drugcompany(brand_name),
-	contract_text	VARCHAR(5000),
-	supervisor		VARCHAR(50) NOT NULL,
-	start_date		DATE 		NOT NULL,
-	end_date		DATE 		NOT NULL,
+	phar_name 		VARCHAR(50)		NOT NULL REFERENCES pharmacy(phar_name),
+	brand_name 		VARCHAR(50) 	NOT NULL REFERENCES drugcompany(brand_name),
+	contract_text	VARCHAR(5000),	NOT NULL
+	supervisor		VARCHAR(50) 	NOT NULL,
+	start_date		DATE 			NOT NULL,
+	end_date		DATE 			NOT NULL,
 	PRIMARY KEY (phar_name,brand_name)
 );
