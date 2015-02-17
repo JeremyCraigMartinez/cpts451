@@ -17,12 +17,12 @@ CREATE TABLE doctor
 );
 CREATE TABLE patient
 (
-	patient_ssn 	INTEGER 		NOT NULL PRIMARY KEY,
+	patient_ssn 	INTEGER 		NOT NULL,
 	age 			INTEGER			NOT NULL,
 	name 			VARCHAR(50)		NOT NULL,
 	primary_phys 	integer			NULL,
 	address 		VARCHAR(100)	NOT NULL,
-	UNIQUE (address),
+	PRIMARY KEY (name,address)
 	FOREIGN KEY (primary_phys) REFERENCES doctor(phys_ssn)
 );
 CREATE TABLE prescription
