@@ -8,33 +8,32 @@ CREATE TABLE doctor
 (
 	phys_ssn 	INTEGER 		NOT NULL PRIMARY KEY,
 	name 		VARCHAR(50) 	NOT NULL,
-	specialty 	VARCHAR(50),	NULL,
-	experience 	VARCHAR(100),	NULL,
-	clinic_name VARCHAR(50),	NOT NULL
-	clinic_city VARCHAR(50),	NOT NULL
-	KEY clinic_id (clinic_name,clinic_city),
-	FOREIGN KEY (clinic_id) REFERENCES clinic (name,city)
+	specialty 	VARCHAR(50)		NULL,
+	experience 	VARCHAR(100)	NULL,
+	clinic_name VARCHAR(50)		NOT NULL,
+	clinic_city VARCHAR(50)		NOT NULL,
+	CONSTRAINT fk_clinic_id FOREIGN KEY (clinic_name,clinic_city) 
+	REFERENCES clinic (name,city)
 );
 CREATE TABLE patient
 (
 	patient_ssn 	INTEGER 		NOT NULL PRIMARY KEY,
-	age 			INTEGER 		NOT NULL,
-	name 			VARCHAR 		NOT NULL,
+	age 			INTEGER			NOT NULL,
+	name 			VARCHAR(50)		NOT NULL,
+	primary_phys 	integer			NULL,
 	address 		VARCHAR(100)	NOT NULL,
-	primary_phys 	VARCHAR(50),	NULL,
-	UNIQUE INDEX address_UNIQUE (address ASC),
-	KEY primary_phys (primary_phys),
-	FOREIGN KEY (primary_phys) REFERENCES doctor (phys_ssn)
+	UNIQUE (address),
+	FOREIGN KEY (primary_phys) REFERENCES doctor(phys_ssn)
 );
 CREATE TABLE prescription
 (
 	pres_num 	INTEGER 		NOT NULL,
 	pres_date 	DATE 			NOT NULL,
-	clinic_name VARCHAR(50),	NOT NULL
-	clinic_city VARCHAR(50),	NOT NULL
-	UNIQUE INDEX pres_num_UNIQUE (pres_num ASC),
-	KEY clinic_id (clinic_name,clinic_city),
-	FOREIGN KEY (clinic_id) REFERENCES clinic (name,city)
+	clinic_name VARCHAR(50)		NOT NULL,
+	clinic_city VARCHAR(50)		NOT NULL,
+	UNIQUE (pres_num),
+	CONSTRAINT fk_clinic_id FOREIGN KEY (clinic_name,clinic_city) 
+	REFERENCES clinic (name,city)
 );
 -- DOCTOR AND PATIENT AND PRESCRIPTION
 CREATE TABLE prescribes
