@@ -51,11 +51,11 @@ CREATE TABLE drugcompany
 );
 CREATE TABLE drug
 (
-	drug_name 	VARCHAR(50)  NOT NULL,
-	formula 	VARCHAR(200) NOT NULL,
-	UNIQUE INDEX drug_name_UNIQUE (drug_name ASC),
-	KEY make (make),
-	FOREIGN KEY (make) REFERENCES drugcompany (brand_name)
+	drug_name 	VARCHAR(50)  	NOT NULL,
+	formula 	VARCHAR(200) 	NOT NULL,
+	make 		VARCHAR(50)		NOT NULL,
+	UNIQUE (drug_name),
+	FOREIGN KEY (make) REFERENCES drugcompany(brand_name)
 );
 CREATE TABLE pharmacy
 (
