@@ -27,8 +27,8 @@ CREATE TABLE patient
 );
 CREATE TABLE prescription
 (
-	pres_num 	INTEGER 		NOT NULL,
-	pres_date 	DATE 			NOT NULL,
+	pres_num 	INTEGER 	NOT NULL,
+	pres_date 	DATE 		NOT NULL,
 	clinic_name VARCHAR(50)		NOT NULL,
 	clinic_city VARCHAR(50)		NOT NULL,
 	UNIQUE (pres_num),
