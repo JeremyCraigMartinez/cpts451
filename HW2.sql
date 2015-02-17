@@ -6,9 +6,9 @@ CREATE TABLE clinic
 );
 CREATE TABLE doctor
 (
-	phys_ssn 	VARCHAR(9) 		NOT NULL PRIMARY KEY,
+	phys_ssn 	VARCHAR(9) 	NOT NULL PRIMARY KEY,
 	name 		VARCHAR(50) 	NOT NULL,
-	specialty 	VARCHAR(50)		NULL,
+	specialty 	VARCHAR(50)	NULL,
 	experience 	VARCHAR(100)	NULL,
 	clinic_name VARCHAR(50)		NOT NULL,
 	clinic_city VARCHAR(50)		NOT NULL,
@@ -18,10 +18,10 @@ CREATE TABLE doctor
 CREATE TABLE patient
 (
 	patient_ssn 	VARCHAR(9) 		NOT NULL,
-	age 			INTEGER			NOT NULL,
-	name 			VARCHAR(50)		NOT NULL,
+	age 		INTEGER			NOT NULL,
+	name 		VARCHAR(50)		NOT NULL,
 	primary_phys 	integer			NULL,
-	address 		VARCHAR(100)	NOT NULL,
+	address 	VARCHAR(100)		NOT NULL,
 	PRIMARY KEY (name,address),
 	FOREIGN KEY (primary_phys) REFERENCES doctor(phys_ssn)
 );
@@ -53,7 +53,7 @@ CREATE TABLE drug
 (
 	drug_name 	VARCHAR(50)  	NOT NULL,
 	formula 	VARCHAR(200) 	NOT NULL,
-	make 		VARCHAR(50)		NOT NULL,
+	make 		VARCHAR(50)	NOT NULL,
 	UNIQUE (drug_name),
 	FOREIGN KEY (make) REFERENCES drugcompany(brand_name)
 );
@@ -76,22 +76,22 @@ CREATE TABLE online
 CREATE TABLE prescription_and_drug
 (
 	pres_num 	INTEGER 	NOT NULL REFERENCES prescription(pres_num),
-	drug_name 	VARCHAR(50) NOT NULL REFERENCES drug(drug_name),
+	drug_name 	VARCHAR(50) 	NOT NULL REFERENCES drug(drug_name),
 	PRIMARY KEY (pres_num,drug_name)
 );
 CREATE TABLE sell
 (
 	phar_name 	VARCHAR(50)	NOT NULL REFERENCES pharmacy(phar_name),
-	drug_name 	VARCHAR(50) NOT NULL REFERENCES drug(drug_name),
+	drug_name 	VARCHAR(50) 	NOT NULL REFERENCES drug(drug_name),
 	price 		INTEGER 	NOT NULL,
 	PRIMARY KEY (phar_name,drug_name)
 );
 CREATE TABLE contract
 (
 	phar_name 		VARCHAR(50)		NOT NULL REFERENCES pharmacy(phar_name),
-	brand_name 		VARCHAR(50) 	NOT NULL REFERENCES drugcompany(brand_name),
+	brand_name 		VARCHAR(50) 		NOT NULL REFERENCES drugcompany(brand_name),
 	contract_text	VARCHAR(5000)	NOT NULL,
-	supervisor		VARCHAR(50) 	NOT NULL,
+	supervisor		VARCHAR(50) 		NOT NULL,
 	start_date		DATE 			NOT NULL,
 	end_date		DATE 			NOT NULL,
 	PRIMARY KEY (phar_name,brand_name)
