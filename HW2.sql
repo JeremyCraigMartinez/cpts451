@@ -6,7 +6,7 @@ CREATE TABLE clinic
 );
 CREATE TABLE doctor
 (
-	phys_ssn 	INTEGER 		NOT NULL PRIMARY KEY,
+	phys_ssn 	VARCHAR(9) 		NOT NULL PRIMARY KEY,
 	name 		VARCHAR(50) 	NOT NULL,
 	specialty 	VARCHAR(50)		NULL,
 	experience 	VARCHAR(100)	NULL,
@@ -17,12 +17,12 @@ CREATE TABLE doctor
 );
 CREATE TABLE patient
 (
-	patient_ssn 	INTEGER 		NOT NULL,
+	patient_ssn 	VARCHAR(9) 		NOT NULL,
 	age 			INTEGER			NOT NULL,
 	name 			VARCHAR(50)		NOT NULL,
 	primary_phys 	integer			NULL,
 	address 		VARCHAR(100)	NOT NULL,
-	PRIMARY KEY (name,address)
+	PRIMARY KEY (name,address),
 	FOREIGN KEY (primary_phys) REFERENCES doctor(phys_ssn)
 );
 CREATE TABLE prescription
@@ -90,7 +90,7 @@ CREATE TABLE contract
 (
 	phar_name 		VARCHAR(50)		NOT NULL REFERENCES pharmacy(phar_name),
 	brand_name 		VARCHAR(50) 	NOT NULL REFERENCES drugcompany(brand_name),
-	contract_text	VARCHAR(5000),	NOT NULL
+	contract_text	VARCHAR(5000)	NOT NULL,
 	supervisor		VARCHAR(50) 	NOT NULL,
 	start_date		DATE 			NOT NULL,
 	end_date		DATE 			NOT NULL,
