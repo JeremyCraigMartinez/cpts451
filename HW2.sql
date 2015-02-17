@@ -12,7 +12,7 @@ CREATE TABLE doctor
 	experience 	VARCHAR(100)	NULL,
 	clinic_name VARCHAR(50)		NOT NULL,
 	clinic_city VARCHAR(50)		NOT NULL,
-	CONSTRAINT fk_clinic_id FOREIGN KEY (clinic_name,clinic_city) 
+	CONSTRAINT fk_doctor_clinic_id FOREIGN KEY (clinic_name,clinic_city) 
 	REFERENCES clinic (name,city)
 );
 CREATE TABLE patient
@@ -32,7 +32,7 @@ CREATE TABLE prescription
 	clinic_name VARCHAR(50)		NOT NULL,
 	clinic_city VARCHAR(50)		NOT NULL,
 	UNIQUE (pres_num),
-	CONSTRAINT fk_clinic_id FOREIGN KEY (clinic_name,clinic_city) 
+	CONSTRAINT fk_prescription_clinic_id FOREIGN KEY (clinic_name,clinic_city) 
 	REFERENCES clinic (name,city)
 );
 -- DOCTOR AND PATIENT AND PRESCRIPTION
