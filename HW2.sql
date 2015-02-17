@@ -90,7 +90,7 @@ CREATE TABLE contract
 (
 	phar_name 		VARCHAR(50)		NOT NULL REFERENCES pharmacy(phar_name),
 	brand_name 		VARCHAR(50) 		NOT NULL REFERENCES drugcompany(brand_name),
-	contract_text	VARCHAR(5000)	NOT NULL,
+	contract_text		VARCHAR(5000)		NOT NULL,
 	supervisor		VARCHAR(50) 		NOT NULL,
 	start_date		DATE 			NOT NULL,
 	end_date		DATE 			NOT NULL,
