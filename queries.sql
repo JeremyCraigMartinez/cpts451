@@ -15,10 +15,16 @@ AND e.grade >= 2
 GROUP BY s.sName;
 
 ########### 3.
-SELECT c.courseNo,c.enroll_limit 
+SELECT c.courseNo,enrollment.num 
 FROM (Course c) 
-WHERE c.classroom='Sloan7' 
-AND c.enroll_limit < 10;
+INNER JOIN (
+	SELECT e.courseNo,COUNT(e.courseNo) num
+	FROM (Enroll e)
+	GROUP BY e.courseNo
+) enrollment
+ON enrollment.num<10 
+AND enrollment.courseNo=c.courseNo
+WHERE c.classroom='Sloan7';
 
 ########### 4.
 SELECT s.sName,s.sID,s.dept 
@@ -36,6 +42,15 @@ ON s.sID = e.sID
 AND e.courseNo='CptS223';
 
 ########### 6 has not number of enrollment!
+SELECT c.courseNo 
+FROM (Course c)
+INNER JOIN (
+	SELECT e.courseNo,COUNT(e.courseNo) num
+	FROM (Enroll e)
+	GROUP BY e.courseNo
+) enrollment
+ON enrollment.courseNo=c.courseNo
+AND enrollment.num>c.enroll_limit;
 
 ########### 7.
 SELECT e_alias.courseNo,c.enroll_limit,e_alias.min_grade,e_alias.max_grade 
