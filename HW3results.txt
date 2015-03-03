@@ -1,0 +1,191 @@
+mysql> ########### 1.
++----------+---------+-----------+
+| courseNo | sName   | classroom |
++----------+---------+-----------+
+| CE417    | Macy    | Sloan7    |
+| CHE433   | Ally    | Sloan32   |
+| CHE433   | Nick    | Sloan32   |
+| CHE433   | Amir    | Sloan32   |
+| CHE451   | Nick    | Sloan32   |
+| CHE476   | Allison | Sloan32   |
+| CHE476   | Nick    | Sloan32   |
+| CHE495   | Ally    | Sloan32   |
+| CHE495   | Nick    | Sloan32   |
+| CHE498   | Nick    | Sloan32   |
+| CptS421  | Bill    | Sloan223  |
+| CptS421  | Alice   | Sloan223  |
+| CptS421  | Jack    | Sloan223  |
+| CptS422  | Jack    | Sloan150  |
+| CptS423  | Bill    | Sloan221  |
+| CptS423  | Alice   | Sloan221  |
+| CptS423  | Jack    | Sloan221  |
+| CptS451  | Ali     | Sloan7    |
+| CptS451  | Alice   | Sloan7    |
+| CptS451  | Jack    | Sloan7    |
+| CptS460  | Jack    | Sloan169  |
+| EE499    | Nancy   | EME56     |
+| EE499    | Diane   | EME56     |
+| EE499    | Aaron   | EME56     |
+| ME401    | Aaron   | Sloan150  |
+| ME402    | Aaron   | Sloan150  |
+| ME431    | Aaron   | Sloan169  |
+| ME439    | Aaron   | Sloan9    |
+| ME474    | Aaron   | Sloan9    |
+| ME495    | Aaron   | Sloan9    |
+| ME499    | Aaron   | Sloan9    |
++----------+---------+-----------+
+31 rows in set (0.01 sec)
+
+mysql> ########### 2.
++-------+
+| sName |
++-------+
+| Ali   |
+| Jack  |
++-------+
+2 rows in set (0.00 sec)
+
+mysql> ########### 3.
++----------+-----+
+| courseNo | num |
++----------+-----+
+| CE351    |   1 |
+| CE417    |   1 |
+| CptS451  |   3 |
+| ME116    |   1 |
+| ME212    |   1 |
+| ME216    |   1 |
+| ME305    |   2 |
+| ME311    |   1 |
+| ME313    |   1 |
+| ME316    |   1 |
+| ME348    |   1 |
++----------+-----+
+11 rows in set (0.00 sec)
+
+mysql> ########### 4.
++--------+----------+------+
+| sName  | sID      | dept |
++--------+----------+------+
+| Ally   | 11554189 | CHE  |
+| Amir   | 11654189 | CHE  |
+| Bob    | 11754189 | CHE  |
+| John   | 11854189 | NULL |
+| Tom    | 11954189 | EECS |
+| Nancy  | 12054189 | EECS |
+| Ally   | 12154189 | EECS |
+| Yousef | 12254189 | EECS |
+| Tom    | 12354189 | EECS |
+| Bob    | 12454189 | EECS |
+| Amir   | 12464189 | MATH |
+| John   | 12474189 | MATH |
+| Yousef | 12484189 | NULL |
+| Tom    | 12494189 | CHE  |
+| Bob    | 12504189 | CHE  |
+| Ally   | 12514189 | EECS |
+| Amir   | 12544189 | NULL |
+| Bob    | 12554189 | EECS |
+| Manny  | 12564189 | EECS |
+| Mick   | 12565189 | EECS |
+| Yousef | 12568189 | EECS |
+| Walter | 12569189 | ME   |
+| Ning   | 12571189 | NULL |
+| Cindy  | 12572189 | NULL |
+| Larry  | 12574189 | EECS |
+| Lee    | 12575189 | EECS |
+| Li     | 12576189 | EECS |
+| Amir   | 12580189 | ME   |
+| Bob    | 12581489 | ME   |
+| Cathy  | 12581789 | ME   |
+| Jack   | 12582089 | ME   |
+| John   | 12583889 | MATH |
++--------+----------+------+
+32 rows in set (0.00 sec)
+
+mysql> ###########5.
++-------+------+-------+
+| sName | dept | grade |
++-------+------+-------+
+| Ali   | EECS |  2.75 |
++-------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> ########### 6 
++----------+
+| courseNo |
++----------+
+| CHE110   |
+| CHE211   |
+| CHE321   |
+| CptS260  |
+| EE499    |
+| MATH251  |
++----------+
+6 rows in set (0.00 sec)
+
+mysql> ########### 7.
++----------+--------------+-----------+-----------+
+| courseNo | enroll_limit | min_grade | max_grade |
++----------+--------------+-----------+-----------+
+| CHE110   |            4 |         2 |         4 |
+| CHE211   |            4 |      2.25 |         4 |
+| CHE321   |            4 |      2.25 |         4 |
+| CHE476   |            5 |         2 |      3.75 |
+| CptS260  |            3 |       1.5 |         3 |
+| CptS322  |           20 |         2 |         4 |
+| CptS323  |           19 |         2 |      3.75 |
+| CptS355  |           22 |         1 |      3.25 |
+| CptS423  |           15 |      1.75 |         3 |
+| CptS451  |           10 |         2 |      3.75 |
+| MATH115  |           10 |         2 |         4 |
+| MATH140  |           10 |      2.75 |         4 |
+| MATH251  |            4 |      1.75 |         4 |
+| ME301    |            8 |      2.75 |         4 |
+| ME305    |            8 |         2 |         4 |
++----------+--------------+-----------+-----------+
+15 rows in set (0.00 sec)
+
+mysql> ########## 8.
++----------+---------+-------+-----------------------------------------+
+| courseNo | sName   | grade | IF(e.grade=e_min.min_grade,'min','max') |
++----------+---------+-------+-----------------------------------------+
+| CHE110   | Amy     |     2 | min                                     |
+| CHE110   | Nick    |     4 | max                                     |
+| CHE211   | Amy     |  2.25 | min                                     |
+| CHE211   | Nick    |     4 | max                                     |
+| CHE321   | Allison |  2.25 | min                                     |
+| CHE321   | Ally    |  2.25 | min                                     |
+| CHE321   | Nick    |     4 | max                                     |
+| CHE334   | Ally    |     3 | min                                     |
+| CHE334   | Nick    |     4 | max                                     |
+| CHE398   | Nick    |   3.5 | max                                     |
+| CHE398   | Amir    |     3 | min                                     |
+| CHE433   | Ally    |     3 | min                                     |
+| CHE433   | Nick    |     4 | max                                     |
+| CHE451   | Nick    |     4 | min                                     |
+| CHE476   | Allison |     2 | min                                     |
+| CHE476   | Nick    |  3.75 | max                                     |
+| CHE495   | Ally    |     3 | min                                     |
+| CHE495   | Nick    |     4 | max                                     |
+| CHE498   | Nick    |  3.75 | min                                     |
++----------+---------+-------+-----------------------------------------+
+19 rows in set (0.00 sec)
+
+mysql> ########## 9.
++-------+----------+
+| sName | sID      |
++-------+----------+
+| Bob   | 12524189 |
+| Nancy | 12570189 |
+| Diane | 12573189 |
+| Amy   | 12577189 |
++-------+----------+
+4 rows in set (0.00 sec)
+
+mysql> ########## 10.
++----------+
+| sID      |
++----------+
+| 12583589 |
++----------+
+1 row in set (0.00 sec)
