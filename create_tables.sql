@@ -108,7 +108,8 @@ CREATE TABLE Friendship (
 	friend2 VARCHAR(50) NOT NULL,
 
 	FOREIGN KEY (friend1) REFERENCES User(user_id),
-	FOREIGN KEY (friend1) REFERENCES User(user_id)
+	FOREIGN KEY (friend1) REFERENCES User(user_id),
+	PRIMARY KEY (friend1, friend2)
 );
 
 CREATE TABLE Review (
