@@ -3,7 +3,7 @@ CREATE TABLE Business (
 	review_count INT NOT NULL,
 	name VARCHAR(100) NOT NULL,
 	state VARCHAR(50) NOT NULL,
-	fulladdress VARCHAR(200),
+	full_address VARCHAR(200),
 	longitude INT NOT NULL,
 	latitude INT NOT NULL,
 	city VARCHAR (50) NOT NULL,
