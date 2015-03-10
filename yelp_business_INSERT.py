@@ -52,7 +52,16 @@ def Days_of_Week_INSERT(obj, cursor):
 			))
 
 def Category_INSERT(obj, cursor):
-	return "Category_INSERT"
+	c_bid = obj['business_id']
+	for each_cat in obj['categories']:
+		cursor.execute((
+				"INSERT INTO Category "
+				"(name,c_bid) "
+				"VALUES (%s,%s)"
+		) % (
+				"\'"+str(each_cat.replace("'", r"\'"))+"\'",
+				"\'"+str(c_bid)+"\'",
+		))
 
 def Attributes_INSERT(obj, cursor):
 	return "Attributes_INSERT"
@@ -65,50 +74,3 @@ def Attributes_Int_Value_INSERT(obj, cursor):
 
 def Attributes_VarChar_Value_INSERT(obj, cursor):
 	return "Attributes_VarChar_Value_INSERT"
-
-def CheckIn_INSERT(obj, cursor):
-	c_bid = obj['business_id']
-	for key,value in obj.items():
-		if key.startswith('checkin_info.'):
-			cursor.execute((
-					"INSERT INTO CheckIn "
-					"(day,num_checkins,c_bid) "
-					"VALUES (%s,%s,%s)"
-			) % (
-					"\'"+str(key.split('.')[1])+"\'",
-							 str(value),
-					"\'"+str(c_bid)+"\'",
-			))
-
-def User_INSERT(obj, cursor):
-	return "User_INSERT"
-
-def Elite_INSERT(obj, cursor):
-	return "Elite_INSERT"
-
-def Compliment_INSERT(obj, cursor):
-	return "Compliment_INSERT"
-
-def Friendship_INSERT(obj, cursor):
-	return "Friendship_INSERT"
-
-def Review_INSERT(obj, cursor):
-	query = (
-		"INSERT INTO Review ("
-		"review_id,stars,review_text,"
-		"votes_funny,votes_useful,"
-		"votes_cool,review_date,r_bid,r_uid) "
-		"VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-		)
-	data = (
-			str(obj['review_id']),
-					obj['stars'], 
-			str(obj['review_text']),
-					obj['votes_funny'],
-					obj['votes_useful'],
-					obj['votes_cool'], 
-			str(obj['review_date']), 
-			str(obj['r_bid']),
-			str(obj['r_uid']),
-		)
-	cursor.execute(query,data)

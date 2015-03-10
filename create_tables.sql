@@ -31,7 +31,7 @@ CREATE TABLE Category (
 
 CREATE TABLE Attributes (
 	attr_id INT NOT NULL AUTO_INCREMENT,
-	a_bid VARCHAR(50) NULL,
+	a_bid VARCHAR(50) NOT NULL,
 	attr_key VARCHAR(50) NOT NULL,
 	is_parent BOOLEAN  DEFAULT FALSE,  /* false if has no children, true otherwise*/
 
