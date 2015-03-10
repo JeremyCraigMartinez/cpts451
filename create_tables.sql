@@ -32,7 +32,7 @@ CREATE TABLE Category (
 CREATE TABLE Attributes (
 	attr_id INT NOT NULL AUTO_INCREMENT,
 	a_bid VARCHAR(50) NOT NULL,
-	attr_key VARCHAR(50) NOT NULL,
+	attr_key VARCHAR(50) NULL,
 	is_parent BOOLEAN  DEFAULT FALSE,  /* false if has no children, true otherwise*/
 
 	FOREIGN KEY (a_bid) REFERENCES Business(business_id),
@@ -40,28 +40,28 @@ CREATE TABLE Attributes (
 );
  
 CREATE TABLE child_attributes (
-	parent_attr_id INT NOT NULL,
-	child_attr_id INT NOT NULL,
+	parent INT NOT NULL,
+	child INT NOT NULL,
 
-	PRIMARY KEY (parent_attr_id, child_attr_id),
-	FOREIGN KEY (parent_attr_id) REFERENCES Attributes(attr_id),
-	FOREIGN KEY (child_attr_id) REFERENCES Attributes(attr_id)
+	PRIMARY KEY (parent, child),
+	FOREIGN KEY (parent) REFERENCES Attributes(attr_id),
+	FOREIGN KEY (child) REFERENCES Attributes(attr_id)
 );
 
 CREATE TABLE Attributes_Int_Value (
-	int_attr_id INT NOT NULL PRIMARY KEY,
+	attr_id INT NOT NULL PRIMARY KEY,
 	value INT NOT NULL,
 
-	FOREIGN KEY (int_attr_id) REFERENCES Attributes(attr_id)
+	FOREIGN KEY (attr_id) REFERENCES Attributes(attr_id)
 );
 
 ALTER TABLE Attributes_Int_Value ADD INDEX (value);
 
 CREATE TABLE Attributes_VarChar_Value (
-	varchar_attr_id INT NOT NULL PRIMARY KEY,
+	attr_id INT NOT NULL PRIMARY KEY,
 	value VARCHAR(50) NOT NULL,
 
-	FOREIGN KEY (varchar_attr_id) REFERENCES Attributes(attr_id)
+	FOREIGN KEY (attr_id) REFERENCES Attributes(attr_id)
 );
 
 ALTER TABLE Attributes_VarChar_Value ADD INDEX (value);
@@ -77,13 +77,13 @@ CREATE TABLE CheckIn (
 
 CREATE TABLE User (
 	user_id VARCHAR(50) NOT NULL PRIMARY KEY,
-	name VARCHAR(100),
-	fans INT,
-	average_stars INT,
-	yelping_since VARCHAR(20),
-	votes_funny INT,
-	votes_useful INT,
-	votes_cool INT
+	name VARCHAR(100) NOT NULL,
+	fans INT NULL,
+	average_stars INT NULL,
+	yelping_since VARCHAR(20) NOT NULL,
+	votes_funny INT NOT NULL,
+	votes_useful INT NOT NULL,
+	votes_cool INT NOT NULL,
 );
 
 CREATE TABLE Elite (

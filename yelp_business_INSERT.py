@@ -22,33 +22,18 @@ def Business_INSERT(obj, cursor):
 
 def Days_of_Week_INSERT(obj, cursor):
 	h_bid = obj['business_id']
-
-	def gen(tmp_obj):
-		skip_day = ''
-		row = {'open':None,'close':None,'day':None,'h_bid':str(h_bid)}
-		for key,value in sorted(obj.items()):
-			if key.startswith('hours.'):
-				args = key.split('.')
-				if skip_day == str(args[1]) or skip_day == '':
-					row[str(args[2])] = str(value)
-					skip_day = str(args[1])
-				else:
-					row['day'] = str(args[1])
-					yield row
-					skip_day = args[1]
-					row = {'open':None,'close':None,'day':None,'h_bid':str(h_bid)}
-					row[str(args[2])] = str(value)
-
-	for row in gen(obj):
+	for day in obj['hours']:
+		open_time = None if 'open' not in day else obj['open']
+		close_time = None if 'close' not in day else obj['close']
 		cursor.execute((
 					"INSERT INTO Days_of_Week "
 					"(day,open,close,h_bid) "
 					"VALUES ('%s','%s','%s','%s')"
 			) % (
-					row['day'],
-					row['open'],
-					row['close'],
-					row['h_bid'],
+					str(day),
+					str(open_time),
+					str(close_time),
+					str(h_bid),
 			))
 
 def Category_INSERT(obj, cursor):
@@ -57,20 +42,77 @@ def Category_INSERT(obj, cursor):
 		cursor.execute((
 				"INSERT INTO Category "
 				"(name,c_bid) "
-				"VALUES (%s,%s)"
+				"VALUES ('%s','%s')"
 		) % (
-				"\'"+str(each_cat.replace("'", r"\'"))+"\'",
-				"\'"+str(c_bid)+"\'",
+				str(each_cat.replace("'", r"\'")),
+				str(c_bid),
 		))
 
-def Attributes_INSERT(obj, cursor):
-	return "Attributes_INSERT"
+cursor = None
+def pre_Attributes_INSERT(obj, cursor):
+	try:
+		obj['attributes']
+		globals()['cursor'] = cursor
+		for each in attr_iter(obj['business_id'], obj['attributes']):
+			pass
+	except:
+		pass
+	return
 
-def child_attributes_INSERT(obj, cursor):
-	return "child_attributes_INSERT"
+def attr_iter(a_bid, attrs):
+	for key,val in attrs.items():
+		if isinstance(val,dict):
+			Attributes_INSERT(a_bid, key, True, val)
+			sec_2_last = cursor.lastrowid
+			for each_child in attr_iter(a_bid, val):
+				child_attributes_INSERT(sec_2_last,each_child)
+		else:
+			Attributes_INSERT(a_bid, key, False, val)
+			yield cursor.lastrowid
 
-def Attributes_Int_Value_INSERT(obj, cursor):
-	return "Attributes_Int_Value_INSERT"
+def Attributes_INSERT(a_bid, attr_key, is_parent, val):
+	cursor.execute((
+				"INSERT INTO Attributes "
+				"(a_bid,attr_key,is_parent) "
+				"VALUES ('%s','%s',%s)"
+		) % (
+				str(a_bid),
+				str(attr_key),
+						is_parent,
+		))
+	try: 
+		int(str(val))
+		Attributes_Int_Value_INSERT(cursor.lastrowid,val)
+	except:
+		Attributes_VarChar_Value_INSERT(cursor.lastrowid,val)
 
-def Attributes_VarChar_Value_INSERT(obj, cursor):
-	return "Attributes_VarChar_Value_INSERT"
+def child_attributes_INSERT(parent, child):
+	print("child", child, type(child))
+	cursor.execute((
+				"INSERT INTO child_attributes "
+				"(parent,child) "
+				"VALUES ('%s','%s')"
+		) % (
+				str(parent),
+				str(child),
+		))
+
+def Attributes_Int_Value_INSERT(autoid, val):
+	cursor.execute((
+				"INSERT INTO Attributes_Int_Value "
+				"(attr_id,value) "
+				"VALUES ('%s','%s')"
+		) % (
+				str(autoid),
+				str(val),
+		))
+
+def Attributes_VarChar_Value_INSERT(autoid, val):
+	cursor.execute((
+				"INSERT INTO Attributes_VarChar_Value "
+				"(attr_id,value) "
+				"VALUES ('%s','%s')"
+		) % (
+				str(autoid),
+				str(val),
+		))
