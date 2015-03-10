@@ -2,9 +2,9 @@ def User_INSERT(obj, cursor):
 	query = (
 		"INSERT INTO User ("
 		"user_id,name,fans,"
-		"average_stars,yelping_since"
+		"average_stars,yelping_since,"
 		"votes_funny,votes_useful,votes_cool) "
-		"VALUES ('%s','%s',%s,%s,'%s',%s,%s,%s)"
+		"VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
 		)
 	data = (
 		str(obj['user_id']),
@@ -12,19 +12,27 @@ def User_INSERT(obj, cursor):
 			 (obj['fans'] if 'fans' in obj else None),
 			 (obj['average_stars'] if 'average_stars' in obj else None),
 		str(obj['yelping_since']),
-				obj['votes_funny'],
-				obj['votes_useful'],
-				obj['votes_cool'],
+			 (obj['votes_funny'] if 'votes_funny' in obj else None),
+			 (obj['votes_useful'] if 'votes_useful' in obj else None),
+			 (obj['votes_cool'] if 'votes_cool' in obj else None),
 		)
 	cursor.execute(query,data)
 
 def Elite_INSERT(obj, cursor):
 	e_uid = obj['user_id']
 	for each in obj['elite']:
+		print((
+				"INSERT INTO Elite "
+				"(year,e_uid) "
+				"VALUES (%s,'%s')"
+		) % (
+				str(each),
+				str(e_uid),
+		))
 		cursor.execute((
 				"INSERT INTO Elite "
 				"(year,e_uid) "
-				"VALUES ('%s','%s')"
+				"VALUES (%s,%s)"
 		) % (
 				str(each),
 				str(e_uid),

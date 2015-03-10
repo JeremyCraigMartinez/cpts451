@@ -11,7 +11,7 @@ if __name__ == '__main__':
 	cursor = connection.cursor()
 
 	json_file = sys.argv[1]
-	filename = json_file.split('.json')[0]
+	filename = json_file.split('/')[len(json_file.split('/'))-1].split('.json')[0]
 	csv_file = '{0}.csv'.format(filename)
 	cols = col_names(json_file, cursor, globals()[filename])
 

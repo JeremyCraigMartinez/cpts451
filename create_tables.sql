@@ -55,7 +55,7 @@ CREATE TABLE Attributes_Int_Value (
 	FOREIGN KEY (attr_id) REFERENCES Attributes(attr_id)
 );
 
-ALTER TABLE Attributes_Int_Value ADD INDEX (value);
+#ALTER TABLE Attributes_Int_Value ADD INDEX (value);
 
 CREATE TABLE Attributes_VarChar_Value (
 	attr_id INT NOT NULL PRIMARY KEY,
@@ -64,7 +64,7 @@ CREATE TABLE Attributes_VarChar_Value (
 	FOREIGN KEY (attr_id) REFERENCES Attributes(attr_id)
 );
 
-ALTER TABLE Attributes_VarChar_Value ADD INDEX (value);
+#ALTER TABLE Attributes_VarChar_Value ADD INDEX (value);
 
 CREATE TABLE CheckIn (
 	day VARCHAR(10) NOT NULL,
@@ -81,9 +81,9 @@ CREATE TABLE User (
 	fans INT NULL,
 	average_stars INT NULL,
 	yelping_since VARCHAR(20) NOT NULL,
-	votes_funny INT NOT NULL,
-	votes_useful INT NOT NULL,
-	votes_cool INT NOT NULL,
+	votes_funny INT NULL,
+	votes_useful INT NULL,
+	votes_cool INT NULL
 );
 
 CREATE TABLE Elite (
