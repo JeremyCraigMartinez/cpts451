@@ -59,18 +59,17 @@ def pre_Attributes_INSERT(obj, cursor):
 		pass
 	return
 
-def attr_iter(a_bid, attrs):
+def attr_iter(a_bid, attrs, embedded=False):
 	for key,val in attrs.items():
 		if isinstance(val,dict):
-			Attributes_INSERT(a_bid, key, True, val)
+			Attributes_INSERT(a_bid, key, True, None)
 			sec_2_last = cursor.lastrowid
-			for each_child in attr_iter(a_bid, val):
+			for each_child in attr_iter(a_bid, val, embedded=True):
 				child_attributes_INSERT(sec_2_last,each_child)
 		else:
-			Attributes_INSERT(a_bid, key, False, val)
-			yield cursor.lastrowid
+			yield Attributes_INSERT(a_bid, key, False, val, True)
 
-def Attributes_INSERT(a_bid, attr_key, is_parent, val):
+def Attributes_INSERT(a_bid, attr_key, is_parent, val, embedded=False):
 	cursor.execute((
 				"INSERT INTO Attributes "
 				"(a_bid,attr_key,is_parent) "
@@ -80,14 +79,17 @@ def Attributes_INSERT(a_bid, attr_key, is_parent, val):
 				str(attr_key),
 						is_parent,
 		))
+	last = cursor.lastrowid
+	if val == None:
+		return
 	try: 
 		int(str(val))
 		Attributes_Int_Value_INSERT(cursor.lastrowid,val)
 	except:
 		Attributes_VarChar_Value_INSERT(cursor.lastrowid,val)
+	return last
 
 def child_attributes_INSERT(parent, child):
-	print("child", child, type(child))
 	cursor.execute((
 				"INSERT INTO child_attributes "
 				"(parent,child) "

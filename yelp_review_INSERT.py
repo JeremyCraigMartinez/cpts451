@@ -9,12 +9,12 @@ def Review_INSERT(obj, cursor):
 	data = (
 			str(obj['review_id']),
 					obj['stars'], 
-			str(obj['review_text']),
-					obj['votes_funny'],
-					obj['votes_useful'],
-					obj['votes_cool'], 
-			str(obj['review_date']), 
-			str(obj['r_bid']),
-			str(obj['r_uid']),
+			str(obj['text']),
+					obj['votes']['funny'],
+					obj['votes']['useful'],
+					obj['votes']['cool'], 
+			str(obj['date']),
+			str(obj['business_id']),
+			str(obj['user_id']),
 		)
 	cursor.execute(query,data)
