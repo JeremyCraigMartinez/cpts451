@@ -13,7 +13,7 @@ mysql> \. /home/jeremy/Desktop/spring2015/cpts451/cpts451/DB-schema.sql
 | open         | tinyint(1)   | YES  |     | NULL    |       |
 | type         | varchar(50)  | NO   |     | NULL    |       |
 +--------------+--------------+------+-----+---------+-------+
-10 rows in set (0.01 sec)
+10 rows in set (0.00 sec)
 
 +-------+-------------+------+-----+---------+-------+
 | Field | Type        | Null | Key | Default | Extra |
@@ -23,7 +23,7 @@ mysql> \. /home/jeremy/Desktop/spring2015/cpts451/cpts451/DB-schema.sql
 | open  | varchar(10) | YES  |     | NULL    |       |
 | close | varchar(10) | YES  |     | NULL    |       |
 +-------+-------------+------+-----+---------+-------+
-4 rows in set (0.00 sec)
+4 rows in set (0.01 sec)
 
 +-------+-------------+------+-----+---------+-------+
 | Field | Type        | Null | Key | Default | Extra |
@@ -41,7 +41,7 @@ mysql> \. /home/jeremy/Desktop/spring2015/cpts451/cpts451/DB-schema.sql
 | attr_key  | varchar(50) | YES  |     | NULL    |                |
 | is_parent | tinyint(1)  | YES  |     | 0       |                |
 +-----------+-------------+------+-----+---------+----------------+
-4 rows in set (0.00 sec)
+4 rows in set (0.01 sec)
 
 +--------+---------+------+-----+---------+-------+
 | Field  | Type    | Null | Key | Default | Extra |
@@ -55,7 +55,7 @@ mysql> \. /home/jeremy/Desktop/spring2015/cpts451/cpts451/DB-schema.sql
 | Field   | Type    | Null | Key | Default | Extra |
 +---------+---------+------+-----+---------+-------+
 | attr_id | int(11) | NO   | PRI | NULL    |       |
-| value   | int(11) | NO   |     | NULL    |       |
+| value   | int(11) | NO   | MUL | NULL    |       |
 +---------+---------+------+-----+---------+-------+
 2 rows in set (0.00 sec)
 
@@ -63,7 +63,7 @@ mysql> \. /home/jeremy/Desktop/spring2015/cpts451/cpts451/DB-schema.sql
 | Field   | Type        | Null | Key | Default | Extra |
 +---------+-------------+------+-----+---------+-------+
 | attr_id | int(11)     | NO   | PRI | NULL    |       |
-| value   | varchar(50) | NO   |     | NULL    |       |
+| value   | varchar(50) | NO   | MUL | NULL    |       |
 +---------+-------------+------+-----+---------+-------+
 2 rows in set (0.00 sec)
 
@@ -88,7 +88,7 @@ mysql> \. /home/jeremy/Desktop/spring2015/cpts451/cpts451/DB-schema.sql
 | votes_useful  | int(11)      | YES  |     | NULL    |       |
 | votes_cool    | int(11)      | YES  |     | NULL    |       |
 +---------------+--------------+------+-----+---------+-------+
-8 rows in set (0.00 sec)
+8 rows in set (0.01 sec)
 
 +-------+-------------+------+-----+---------+-------+
 | Field | Type        | Null | Key | Default | Extra |
@@ -105,7 +105,7 @@ mysql> \. /home/jeremy/Desktop/spring2015/cpts451/cpts451/DB-schema.sql
 | c_uid     | varchar(50) | NO   | PRI | NULL    |       |
 | numTagged | int(11)     | YES  |     | NULL    |       |
 +-----------+-------------+------+-----+---------+-------+
-3 rows in set (0.01 sec)
+3 rows in set (0.00 sec)
 
 +---------+-------------+------+-----+---------+-------+
 | Field   | Type        | Null | Key | Default | Extra |
