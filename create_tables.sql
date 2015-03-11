@@ -55,6 +55,7 @@ CREATE TABLE Attributes_Int_Value (
 	FOREIGN KEY (attr_id) REFERENCES Attributes(attr_id)
 );
 
+#	Manually enter this index after insertion script
 #ALTER TABLE Attributes_Int_Value ADD INDEX (value);
 
 CREATE TABLE Attributes_VarChar_Value (
@@ -64,6 +65,7 @@ CREATE TABLE Attributes_VarChar_Value (
 	FOREIGN KEY (attr_id) REFERENCES Attributes(attr_id)
 );
 
+#	Manually enter this index after insertion script
 #ALTER TABLE Attributes_VarChar_Value ADD INDEX (value);
 
 CREATE TABLE CheckIn (

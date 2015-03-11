@@ -17,10 +17,9 @@ def yelp_checkin(obj, cursor):
 
 def yelp_user(obj, cursor):
 	#User_INSERT(obj, cursor)
-	Elite_INSERT(obj, cursor)
+	#Elite_INSERT(obj, cursor)
 	#Compliment_INSERT(obj, cursor)
-	#Friendship_INSERT(obj, cursor)
-	#Review_INSERT(obj, cursor)
+	Friendship_INSERT(obj, cursor)
 
 def yelp_review(obj, cursor):
 	Review_INSERT(obj, cursor)

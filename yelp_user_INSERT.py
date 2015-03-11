@@ -12,16 +12,16 @@ def User_INSERT(obj, cursor):
 			 (obj['fans'] if 'fans' in obj else None),
 			 (obj['average_stars'] if 'average_stars' in obj else None),
 		str(obj['yelping_since']),
-			 (obj['votes_funny'] if 'votes_funny' in obj else None),
-			 (obj['votes_useful'] if 'votes_useful' in obj else None),
-			 (obj['votes_cool'] if 'votes_cool' in obj else None),
+				obj['votes']['funny'],
+				obj['votes']['useful'],
+				obj['votes']['cool'],
 		)
 	cursor.execute(query,data)
 
 def Elite_INSERT(obj, cursor):
 	e_uid = obj['user_id']
 	for each in obj['elite']:
-		print((
+		cursor.execute((
 				"INSERT INTO Elite "
 				"(year,e_uid) "
 				"VALUES (%s,'%s')"
@@ -29,20 +29,12 @@ def Elite_INSERT(obj, cursor):
 				str(each),
 				str(e_uid),
 		))
-		cursor.execute((
-				"INSERT INTO Elite "
-				"(year,e_uid) "
-				"VALUES (%s,%s)"
-		) % (
-				str(each),
-				str(e_uid),
-		))
 
 def Compliment_INSERT(obj, cursor):
 	c_uid = obj['user_id']
-	for key,val in obj['compliments']:
+	for key,val in obj['compliments'].items():
 		cursor.execute((
-				"INSERT INTO Compliments "
+				"INSERT INTO Compliment "
 				"(tag,c_uid,numTagged) "
 				"VALUES ('%s','%s',%s)"
 		) % (
@@ -55,7 +47,7 @@ def Friendship_INSERT(obj, cursor):
 	friend1 = obj['user_id']
 	for each_friend in obj['friends']:
 		cursor.execute((
-				"INSERT INTO Friends "
+				"INSERT INTO Friendship "
 				"(friend1,friend2) "
 				"VALUES ('%s','%s')"
 		) % (
