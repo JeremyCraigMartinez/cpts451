@@ -1,0 +1,131 @@
+mysql> \. /home/jeremy/Desktop/spring2015/cpts451/cpts451/DB-schema.sql
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| business_id  | varchar(50)  | NO   | PRI | NULL    |       |
+| review_count | int(11)      | NO   |     | NULL    |       |
+| name         | varchar(100) | NO   |     | NULL    |       |
+| state        | varchar(50)  | NO   |     | NULL    |       |
+| full_address | varchar(200) | YES  |     | NULL    |       |
+| longitude    | int(11)      | NO   |     | NULL    |       |
+| latitude     | int(11)      | NO   |     | NULL    |       |
+| city         | varchar(50)  | NO   |     | NULL    |       |
+| open         | tinyint(1)   | YES  |     | NULL    |       |
+| type         | varchar(50)  | NO   |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+10 rows in set (0.01 sec)
+
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| h_bid | varchar(50) | NO   | PRI | NULL    |       |
+| day   | varchar(10) | NO   | PRI | NULL    |       |
+| open  | varchar(10) | YES  |     | NULL    |       |
+| close | varchar(10) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| c_bid | varchar(50) | NO   | PRI | NULL    |       |
+| name  | varchar(50) | NO   | PRI |         |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| attr_id   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| a_bid     | varchar(50) | NO   | MUL | NULL    |                |
+| attr_key  | varchar(50) | YES  |     | NULL    |                |
+| is_parent | tinyint(1)  | YES  |     | 0       |                |
++-----------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
++--------+---------+------+-----+---------+-------+
+| Field  | Type    | Null | Key | Default | Extra |
++--------+---------+------+-----+---------+-------+
+| parent | int(11) | NO   | PRI | NULL    |       |
+| child  | int(11) | NO   | PRI | NULL    |       |
++--------+---------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
++---------+---------+------+-----+---------+-------+
+| Field   | Type    | Null | Key | Default | Extra |
++---------+---------+------+-----+---------+-------+
+| attr_id | int(11) | NO   | PRI | NULL    |       |
+| value   | int(11) | NO   |     | NULL    |       |
++---------+---------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| attr_id | int(11)     | NO   | PRI | NULL    |       |
+| value   | varchar(50) | NO   |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| day          | varchar(10) | NO   | PRI | NULL    |       |
+| num_checkins | int(11)     | NO   |     | NULL    |       |
+| c_bid        | varchar(50) | NO   | PRI | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| user_id       | varchar(50)  | NO   | PRI | NULL    |       |
+| name          | varchar(100) | NO   |     | NULL    |       |
+| fans          | int(11)      | YES  |     | NULL    |       |
+| average_stars | int(11)      | YES  |     | NULL    |       |
+| yelping_since | varchar(20)  | NO   |     | NULL    |       |
+| votes_funny   | int(11)      | YES  |     | NULL    |       |
+| votes_useful  | int(11)      | YES  |     | NULL    |       |
+| votes_cool    | int(11)      | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| year  | int(11)     | NO   | PRI | NULL    |       |
+| e_uid | varchar(50) | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| tag       | varchar(50) | NO   | PRI | NULL    |       |
+| c_uid     | varchar(50) | NO   | PRI | NULL    |       |
+| numTagged | int(11)     | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| friend1 | varchar(50) | NO   | PRI | NULL    |       |
+| friend2 | varchar(50) | NO   | PRI | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| review_id    | varchar(50)  | NO   | PRI | NULL    |       |
+| stars        | int(11)      | NO   |     | NULL    |       |
+| review_text  | varchar(200) | NO   |     | NULL    |       |
+| votes_funny  | int(11)      | NO   |     | NULL    |       |
+| votes_useful | int(11)      | NO   |     | NULL    |       |
+| votes_cool   | int(11)      | NO   |     | NULL    |       |
+| review_date  | date         | NO   |     | NULL    |       |
+| r_bid        | varchar(50)  | NO   | MUL | NULL    |       |
+| r_uid        | varchar(50)  | NO   | MUL | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)

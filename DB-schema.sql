@@ -1,0 +1,13 @@
+desc Business;
+desc Days_of_Week;
+desc Category;
+desc Attributes;
+desc child_attributes;
+desc Attributes_Int_Value;
+desc Attributes_VarChar_Value;
+desc CheckIn;
+desc User;
+desc Elite;
+desc Compliment;
+desc Friendship;
+desc Review;
