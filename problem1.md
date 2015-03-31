@@ -27,6 +27,7 @@ __c__. Constraint does not already exist
 	    END IF;
     END
     //
+    delimiter ;
 
 __d__. Constraint does not already exist
 
@@ -39,7 +40,7 @@ __e__. Constraint does not already exist
     CREATE TABLE Course (
 	    courseNo VARCHAR(7) PRIMARY KEY,
 	    dept VARCHAR(10) NOT NULL,
-	    enroll_limit INTEGER,
+	    enroll_limit INTEGER CHECK (enroll_limit>5),
 	    classroom VARCHAR(10),
 	    meets_at VARCHAR(25),
 	    fid CHAR(5) NOT NULL REFERENCES Faculty(fID),
@@ -63,3 +64,4 @@ __f__. Constraint does not already exist
 	    END IF;
     END
     //
+    delimiter ;
