@@ -2,3 +2,4 @@ yelp*.json
 *.pyc
 creds*
 milestone2*
+node_modules*
