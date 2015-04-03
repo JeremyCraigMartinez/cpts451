@@ -3,3 +3,6 @@ yelp*.json
 creds*
 milestone2*
 node_modules*
+.bowerrc
+creds.json
+public/libs

@@ -1,16 +1,12 @@
 var mysql     =    require('mysql');
+var fs = require('fs');
+
+creds = JSON.parse(fs.readFileSync('creds.json', 'utf8'));
 
 function db_init() {
   var db_communicator = {
 
-    pool: mysql.createPool({
-      connectionLimit : 100, //important
-      host     : 'localhost',
-      user     : 'root',
-      password : 'Johnwayne93',
-      database : 'hw4',
-      debug    :  false
-    }),
+    pool: mysql.createPool(creds),
 
     handle_database: function(req,res) {
       
