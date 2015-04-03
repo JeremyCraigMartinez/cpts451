@@ -1,14 +1,18 @@
 // app/routes.js
 
-module.exports = function(app) {
+module.exports = function(app, db) {
 
   // server routes ===========================================================
   // handle things like api calls
   // authentication routes
 
   // sample api route
-  app.get('/api/nerds', function(req, res) {
-    res.json('{"hello":"world"'); // return all nerds in JSON format
+  app.get('/query', function(req, res) {
+    db.query("select * from Course",function(err,rows){
+      if(!err) {
+        res.json(rows); // return all nerds in JSON format
+      }           
+    });
   });
 
   // route to handle creating goes here (app.post)

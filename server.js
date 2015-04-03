@@ -11,7 +11,13 @@ var methodOverride = require('method-override');
 app.use('/libs',express.static(__dirname + '/libs'));
 
 // config files
-//var db = require('./config/db');
+var db;
+
+require('./config/db').then(function(res){
+	db = res;
+	// routes ==================================================
+	require('./app/routes')(app, db); // configure our routes	
+});
 
 // set our port
 var port = process.env.PORT || 8000; 
@@ -35,9 +41,6 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 
 // set the static files location /public/img will be /img for users
 app.use(express.static(__dirname + '/public')); 
-
-// routes ==================================================
-require('./app/routes')(app); // configure our routes
 
 // start app ===============================================
 // startup our app at http://localhost:8080

@@ -1,7 +1,15 @@
-<!-- public/views/home.html -->
-
-<div class="jumbotron text-center">
-    <h1>Home Page</h1>
-
-    <p>{{ tagline }}</p>
+<div class="col-md-2" style="background-color: #A9BCF5;"><!--#A9BCF5-->
+	<div ng-repeat="category in main_business_categories">
+		<input type="checkbox" />{{category}}
+	</div>
 </div>
+<div class="col-md-2" style="background-color: #2ECCFA;"><!--#2ECCFA-->
+	<p>column2</p>
+</div>
+<div class="col-md-2" style="background-color: #81F7F3;"><!--#81F7F3-->
+	<p>third</p>
+</div>
+<div class="col-md-6">
+	<p>fourth</p>
+</div>
+<div style="clear:both"></div>
