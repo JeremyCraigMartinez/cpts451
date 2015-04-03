@@ -1,5 +1,5 @@
 {
-  "name": "node-mysql",
+  "name": "server",
   "version": "0.0.1",
   "repository": {
     "type": "git",
@@ -11,6 +11,7 @@
     "express": "^4.10.6",
     "grunt": "latest",
     "grunt-cli": "latest",
+    "grunt-contrib-uglify": "^0.8.1",
     "grunt-copy": "latest",
     "grunt-env": "latest",
     "method-override": "~2.0.2",

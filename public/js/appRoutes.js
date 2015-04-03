@@ -8,6 +8,11 @@
             templateUrl: 'views/home.html',
             controller: 'MainController'
         })
+        .when('/query', {
+        	templateUrl: 'views/testquery.html',
+        	controller: 'QueryController'
+        })
+        .otherwise({redirectTo: '/'});
 
     $locationProvider.html5Mode(true);
 
