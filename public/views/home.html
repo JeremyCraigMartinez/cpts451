@@ -1,6 +1,6 @@
 <div class="col-md-2" style="background-color: #A9BCF5;"><!--#A9BCF5-->
 	<div ng-repeat="category in main_business_categories">
-		<input type="checkbox" />{{category}}
+		<input type="checkbox" ng-click="func()"/>{{category}}
 	</div>
 </div>
 <div class="col-md-2" style="background-color: #2ECCFA;"><!--#2ECCFA-->
@@ -10,6 +10,8 @@
 	<p>third</p>
 </div>
 <div class="col-md-6">
-	<p>fourth</p>
+	<div ng-repeat="entry in entries">
+		{{entry}}
+	</div>
 </div>
 <div style="clear:both"></div>

@@ -1,8 +1,9 @@
 // public/js/controllers/MainCtrl.js
 angular.module('MainCtrl', ['ngRoute'])
-	.controller('MainController', ['MainService',
-		function($scope, MainService) {
+	.controller('MainController', 
+		function($scope, $q, Main) {
 
+			console.log(Main);
 			//$scope.tagline = 'To the moon and back!';   
 
 			$scope.main_business_categories = [
@@ -36,5 +37,12 @@ angular.module('MainCtrl', ['ngRoute'])
 				"Transportation"
 			];
 
-
-}]);
+			$scope.func = function() {
+				var deferred = $q.defer();
+				Main.get()
+				.success(function(data) {
+					$scope.entries = data;
+				});
+				return deferred.promise;
+			}
+});

@@ -1,8 +1,7 @@
-/*
-angular.module('MainService', []).
-	factory('Main', 
-		['$http', 
+angular.module('MainService', [])
+	.factory('Main', 
 		function($http){
+			/*
 			console.log('done');
 				this.search = function(name) {
 					console.log("here");
@@ -14,21 +13,11 @@ angular.module('MainService', []).
 						console.log(response.data);
 					});
 				}
-			}]);
-*/
-angular.module('sampleApp.services', []).
-	service('MainService', 
-		['$http', 
-		function($http){
-			console.log('done');
-				this.search = function(name) {
-					console.log("here");
-					$http({
-						method: 'GET',
-						url: 'localhost:8000/query'
-					}).
-					then(function(response) {
-						console.log(response.data);
-					});
+				*/
+				return {
+					get: function(){
+						return $http.get('/query');
+					}
 				}
-			}]);			
+
+			});
