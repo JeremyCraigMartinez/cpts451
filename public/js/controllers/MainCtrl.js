@@ -1,57 +1,73 @@
 // public/js/controllers/MainCtrl.js
+var underscore = angular.module('underscore', []);
+underscore.factory('_', function() {
+  return window._; // assumes underscore has already been loaded on the page
+});
+
 angular.module('MainCtrl', ['ngRoute'])
 	.controller('MainController', 
-		function($scope, $q, column1_requests, column2_requests) {
+		function($scope, $q, initialize, column1_requests, column2_requests, column3_requests, _) {
 
-			$scope.main_business_categories = [
-				"Active Life",
-				"Arts & Entertainment",
-				"Automotive",
-				"Car Rental",
-				"Cafes",
-				"Beauty & Spas",
-				"Convenience Stores",
-				"Dentists",
-				"Doctors",
-				"Drugstores",
-				"Department Stores",
-				"Education",
-				"Event Planning & Services",
-				"Flowers & Gifts",
-				"Food",
-				"Health & Medical",
-				"Home Services",
-				"Home & Garden",
-				"Hospitals",
-				"Hotels & Travel",
-				"Hardware Stores",
-				"Grocery",
-				"Medical Centers",
-				"Nurseries & Gardening",
-				"Nightlife",
-				"Restaurants",
-				"Shopping",
-				"Transportation"
-			];
+			initialize.get()
+			.success(function(data) {
+				$scope.main_business_categories = {};
+				for (each in data) {
+					$scope.main_business_categories[data[each]["main_category"]] = [];
+				}
+			})
+
+			$scope.sub_business_categories = [];
+
+			var update_sub_business_categories = function() {
+				$scope.sub_business_categories = [];
+				for (each in $scope.main_business_categories) {
+					$scope.sub_business_categories = _.union($scope.sub_business_categories, 
+																									 $scope.main_business_categories[each]);
+				}
+			}
 
 			$scope.col1func = function(category) {
-				var deferred = $q.defer();
-				column1_requests.get(category)
-				.success(function(data) {
-					$scope.sub_business_categories = []
-					for (each in data){
-						$scope.sub_business_categories.push(data[each]["name"]);
-					}
-				});
-				return deferred.promise;
+				if ($scope.main_business_categories[category].length === 0) {
+					column1_requests.get(category)
+					.success(function(data) {
+						for (each in data){
+							$scope.main_business_categories[category].push(data[each]["name"]);
+						}
+						update_sub_business_categories();
+					});
+				}
+				else {
+					$scope.main_business_categories[category] = [];
+					update_sub_business_categories();
+				}
 			}
 
-			$scope.col2func = function(category) {
-				var deferred = $q.defer();
-				column2_requests.get(category)
-				.success(function(data) {
-					console.log(data);
-				});
-				return deferred.promise;
+			var pop_or_push = function(arr, item) {
+				if (arr.indexOf(item) > -1) {
+					var index = arr.indexOf(item);
+					arr.splice(index,1);
+				}
+				else {
+					arr.push(item);
+				}				
 			}
+
+			$scope.select_sub_categories = []
+			$scope.col2func = function(category) {
+				pop_or_push($scope.select_sub_categories, category);
+				column2_requests.post($scope.select_sub_categories)
+					.success(function(data) {
+						$scope.attrs = data;
+					});
+			}
+
+			$scope.all_attrs = []
+			$scope.col3func = function(attribute) {
+				pop_or_push($scope.all_attrs, attribute);
+				column3_requests.post($scope.all_attrs)
+					.success(function(data) {
+						$scope.businesses = data;
+					});
+			}
+
 });

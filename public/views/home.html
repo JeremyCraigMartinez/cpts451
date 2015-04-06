@@ -1,5 +1,5 @@
 <div class="col-md-2 col-sm-2 col-xs-3 col-lg-2" style="background-color: #A9BCF5;"><!--#A9BCF5-->
-	<div ng-repeat="main_category in main_business_categories">
+	<div ng-repeat="(main_category, sub_category) in main_business_categories">
 		<input type="checkbox" ng-click="col1func(main_category)"/>{{main_category}}
 	</div>
 </div>
@@ -9,9 +9,13 @@
 	</div>
 </div>
 <div class="col-md-2 col-sm-2 col-xs-3 col-lg-2" style="background-color: #81F7F3;"><!--#81F7F3-->
-	<p>third</p>
+	<div ng-repeat="attr in attrs">
+		<input type="checkbox" ng-click="col3func(attr.attr_key)"/>{{attr.attr_key}}
+	</div>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-9 col-lg-6">
-	<p>fourth</p>
+	<div ng-repeat="business in businesses">
+		{{business}}
+	</div>
 </div>
 <div style="clear:both"></div>
