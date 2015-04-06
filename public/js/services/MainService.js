@@ -1,22 +1,18 @@
 angular.module('MainService', [])
-	.factory('Main', 
+	.factory('column1_requests', 
 		function($http){
-			/*
-			console.log('done');
-				this.search = function(name) {
-					console.log("here");
-					$http({
-						method: 'GET',
-						url: 'localhost:8000/query'
-					}).
-					then(function(response) {
-						console.log(response.data);
-					});
-				}
-				*/
 				return {
-					get: function(){
-						return $http.get('/query');
+					get: function(category){
+						return $http.get('/col1/' + category);
+					}
+				}
+
+			})
+	.factory('column2_requests', 
+		function($http){
+				return {
+					get: function(category){
+						return $http.get('/col2/' + category);
 					}
 				}
 

@@ -1,10 +1,7 @@
 // public/js/controllers/MainCtrl.js
 angular.module('MainCtrl', ['ngRoute'])
 	.controller('MainController', 
-		function($scope, $q, Main) {
-
-			console.log(Main);
-			//$scope.tagline = 'To the moon and back!';   
+		function($scope, $q, column1_requests, column2_requests) {
 
 			$scope.main_business_categories = [
 				"Active Life",
@@ -37,11 +34,23 @@ angular.module('MainCtrl', ['ngRoute'])
 				"Transportation"
 			];
 
-			$scope.func = function() {
+			$scope.col1func = function(category) {
 				var deferred = $q.defer();
-				Main.get()
+				column1_requests.get(category)
 				.success(function(data) {
-					$scope.entries = data;
+					$scope.sub_business_categories = []
+					for (each in data){
+						$scope.sub_business_categories.push(data[each]["name"]);
+					}
+				});
+				return deferred.promise;
+			}
+
+			$scope.col2func = function(category) {
+				var deferred = $q.defer();
+				column2_requests.get(category)
+				.success(function(data) {
+					console.log(data);
 				});
 				return deferred.promise;
 			}
