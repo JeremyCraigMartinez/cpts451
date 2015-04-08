@@ -8,9 +8,9 @@
             templateUrl: 'views/home.html',
             controller: 'MainController'
         })
-        .when('/query', {
-        	templateUrl: 'views/testquery.html',
-        	controller: 'QueryController'
+        .when('/business/:business_id', {
+        	templateUrl: 'views/review.html',
+        	controller: 'ReviewController'
         })
         .otherwise({redirectTo: '/'});
 

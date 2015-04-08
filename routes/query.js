@@ -9,14 +9,14 @@ module.exports = function(app, db) {
   // sample api route
   app.get('/initialize', function(req, res) {
     db.query("select * from main_categories",function(err,rows){
-      if(!err) {
-        res.json(rows); // return all nerds in JSON format
-      }           
+      if (!err) res.json(rows); // return all nerds in JSON format          
+      else console.log("you need to run \. "+__dirname+"/../create_main_categories.sql");
     });
   });
 
   app.get('/col1/:Category', function(req, res) {
-    db.query("select distinct(c.name) from (Category c) where c.c_bid in (select c_bid from Category where name=\"" + req.params.Category + "\") and c.name not in (select main_category from main_categories)",function(err,rows){
+    var query = "select distinct(c.name) from (Category c) where c.c_bid in (select c_bid from Category where name=\"" + req.params.Category + "\") and c.name not in (select main_category from main_categories)"
+    db.query(query,function(err,rows){
       if(!err) {
         res.json(rows); // return all nerds in JSON format
       }           
@@ -26,12 +26,13 @@ module.exports = function(app, db) {
   app.post('/col2', function(req, res) {
     if (req.body.length === 0) {
       res.json({});
-      return;
     }
+
     var query = "select distinct(attr_key) from Attributes where ";
     for (each in req.body) {
       query += "a_bid in (select c_bid from Category where name=\"" + req.body[each] + "\") and "
     }
+
     db.query(query.substring(0,query.length-5), function(err,rows){
       if (!err) {
         res.json(rows);
@@ -40,24 +41,27 @@ module.exports = function(app, db) {
   });
 
   app.post('/col3', function(req, res) {
-    var query = "select b.name,b.city,b.state from (Business b) where ";
-    for (each in req.body) {
-      query += "b.business_id in (select a_bid from Attributes where attr_key=\"" + req.body[each] + "\") and "
+    var query = "select b.name,b.city,b.state,b.business_id from (Business b) where ";
+    attrs = req.body['all_attrs'];
+    categories = req.body['categories'];
+
+    if (attrs.length === 0) {
+      res.json({});
     }
-    db.query(query.substring(0,query.length-5), function(err,rows){
+
+    for (each in attrs) {
+      query += "b.business_id in (select a_bid from Attributes where attr_key=\"" + attrs[each] + "\") and "
+    }
+
+    for (each in categories) {
+      query += "b.business_id in (select c_bid from Category where name=\"" + categories[each] + "\") and "
+    }
+    query = query.substring(0,query.length-5);
+
+    db.query(query, function(err,rows){
       if (!err) {
         res.json(rows);
       }
-    })
+    });
   });
-
-  // route to handle creating goes here (app.post)
-  // route to handle delete goes here (app.delete)
-
-  // frontend routes =========================================================
-  // route to handle all angular requests
-  app.get('*', function(req, res) {
-    res.sendfile('./public/views/index.html'); // load our public/index.html file
-  });
-
 };

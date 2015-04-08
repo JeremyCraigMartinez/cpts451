@@ -1,43 +1,54 @@
-var app = angular.module('flapperNews', ['ui.router']);
+// server.js
 
-app.controller('MainCtrl', 
-	['$scope',
-	 'posts',
-	function($scope, posts){
-		$scope.posts = posts.posts;
-		$scope.addPost = function(){
-		  if(!$scope.title || $scope.title === '') { return; }
-		  $scope.posts.push({
-		    title: $scope.title,
-		    link: $scope.link,
-		    upvotes: 0
-		  });
-		  $scope.title = '';
-		  $scope.link = '';
-		};
-		$scope.incrementUpvotes = function(post) {
-		  post.upvotes += 1;
-		};
-	}]);
+// modules =================================================
+var express        = require('express');
+var app            = express();
+var bodyParser     = require('body-parser');
+var methodOverride = require('method-override');
+var routes 				 = require('./routes');
 
-app.factory('posts', [function(){
-  var o = {
-    posts: []
-  };
-  return o;
-}]);
+// configuration ===========================================
 
-app.config([
-'$stateProvider',
-'$urlRouterProvider',
-function($stateProvider, $urlRouterProvider) {
+app.use('/libs',express.static(__dirname + '/libs'));
 
-  $stateProvider
-    .state('home', {
-      url: '/home',
-      templateUrl: '/home.html',
-      controller: 'MainCtrl'
-    });
+// config files
+var db;
 
-  $urlRouterProvider.otherwise('home');
-}]);
+require('./config/db').then(function(res){
+	db = res;
+	// routes ==================================================
+	routes(app, db); // configure our routes	
+});
+
+// set our port
+var port = process.env.PORT || 8000; 
+
+// connect to our mongoDB database 
+// (uncomment after you enter in your own credentials in config/db.js)
+// mongoose.connect(db.url); 
+
+// get all data/stuff of the body (POST) parameters
+// parse application/json 
+app.use(bodyParser.json()); 
+
+// parse application/vnd.api+json as json
+app.use(bodyParser.json({ type: 'application/vnd.api+json' })); 
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true })); 
+
+// override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
+app.use(methodOverride('X-HTTP-Method-Override')); 
+
+// set the static files location /public/img will be /img for users
+app.use(express.static(__dirname + '/public')); 
+
+// start app ===============================================
+// startup our app at http://localhost:8080
+app.listen(port);               
+
+// shoutout to the user                     
+console.log('Magic happens on port ' + port);
+
+// expose app           
+exports = module.exports = app;  

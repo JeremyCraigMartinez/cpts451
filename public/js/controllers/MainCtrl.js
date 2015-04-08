@@ -7,7 +7,6 @@ underscore.factory('_', function() {
 angular.module('MainCtrl', ['ngRoute'])
 	.controller('MainController', 
 		function($scope, $q, initialize, column1_requests, column2_requests, column3_requests, _) {
-
 			initialize.get()
 			.success(function(data) {
 				$scope.main_business_categories = {};
@@ -27,6 +26,9 @@ angular.module('MainCtrl', ['ngRoute'])
 			}
 
 			$scope.col1func = function(category) {
+				console.log($scope.day_of_the_week);
+				console.log($scope.open);
+				console.log($scope.close);
 				if ($scope.main_business_categories[category].length === 0) {
 					column1_requests.get(category)
 					.success(function(data) {
@@ -52,10 +54,10 @@ angular.module('MainCtrl', ['ngRoute'])
 				}				
 			}
 
-			$scope.select_sub_categories = []
+			$scope.selected_sub_categories = []
 			$scope.col2func = function(category) {
-				pop_or_push($scope.select_sub_categories, category);
-				column2_requests.post($scope.select_sub_categories)
+				pop_or_push($scope.selected_sub_categories, category);
+				column2_requests.post($scope.selected_sub_categories)
 					.success(function(data) {
 						$scope.attrs = data;
 					});
@@ -64,7 +66,7 @@ angular.module('MainCtrl', ['ngRoute'])
 			$scope.all_attrs = []
 			$scope.col3func = function(attribute) {
 				pop_or_push($scope.all_attrs, attribute);
-				column3_requests.post($scope.all_attrs)
+				column3_requests.post($scope.all_attrs, $scope.selected_sub_categories)
 					.success(function(data) {
 						$scope.businesses = data;
 					});
