@@ -3,8 +3,8 @@ def Business_INSERT(obj, cursor):
 		"INSERT INTO Business ("
 		"business_id,review_count,name,"
 		"state,full_address,longitude,"
-		"latitude,city,open,type ) "
-		"VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+		"latitude,city,open,stars,type ) "
+		"VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
 		)
 	data = (
 			str(obj['business_id']),
@@ -16,6 +16,7 @@ def Business_INSERT(obj, cursor):
 					obj['latitude'],
 			str(obj['city']),
 		 (		obj['open'] if 'open' in obj else None),
+					obj['stars'],
 			str(obj['type']),
 		)
 	cursor.execute(query,data)
@@ -23,8 +24,8 @@ def Business_INSERT(obj, cursor):
 def Days_of_Week_INSERT(obj, cursor):
 	h_bid = obj['business_id']
 	for day in obj['hours']:
-		open_time = None if 'open' not in day else obj['open']
-		close_time = None if 'close' not in day else obj['close']
+		open_time = None if 'open' not in obj['hours'][day] else obj['hours'][day]['open']
+		close_time = None if 'close' not in obj['hours'][day] else obj['hours'][day]['close']
 		cursor.execute((
 					"INSERT INTO Days_of_Week "
 					"(day,open,close,h_bid) "

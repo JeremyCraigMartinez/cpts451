@@ -8,7 +8,8 @@ CREATE TABLE Business (
 	latitude INT NOT NULL,
 	city VARCHAR (50) NOT NULL,
 	open BOOLEAN NULL,
-	type	VARCHAR(50) NOT NULL
+	stars DECIMAL NOT NULL,
+	type VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Days_of_Week (
