@@ -15,17 +15,21 @@
 </div>
 <div class="col-md-6 col-sm-6 col-xs-9 col-lg-6 right-column">
 		<div class="col-md-6 col-sm-6 col-xs-9 col-lg-6"><strong>Business</strong></div>
-		<div class="col-md-3 col-sm-3 col-xs-5 col-lg-3"><strong>City</strong></div>
-		<div class="col-md-3 col-sm-3 col-xs-4 col-lg-3"><strong>State</strong></div>
+		<div class="col-md-2 col-sm-2 col-xs-3 col-lg-2"><strong>City</strong></div>
+		<div class="col-md-2 col-sm-2 col-xs-3 col-lg-2"><strong>State</strong></div>
+		<div class="col-md-2 col-sm-2 col-xs-3 col-lg-2"><strong>Stars</strong></div>
 	<div ng-repeat="business in businesses">
 		<div class="col-md-6 col-sm-6 col-xs-9 col-lg-6 business-possible-overflow">
 			<a ng-href="/business/{{business.business_id}}">{{business.name}}</a>
 		</div>
-		<div class="col-md-3 col-sm-3 col-xs-5 col-lg-3">
+		<div class="col-md-2 col-sm-2 col-xs-3 col-lg-2">
 			{{business.city}}
 		</div>
-		<div class="col-md-3 col-sm-3 col-xs-4 col-lg-3">
+		<div class="col-md-2 col-sm-2 col-xs-3 col-lg-2">
 			{{business.state}}
+		</div>
+		<div class="col-md-2 col-sm-2 col-xs-3 col-lg-2">
+			{{business.stars}}
 		</div>
 	</div>
 </div>

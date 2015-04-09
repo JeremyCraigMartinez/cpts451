@@ -42,7 +42,7 @@ module.exports = function(app, db) {
   });
 
   app.post('/col3', function(req, res) {
-    var query = "select b.name,b.city,b.state,b.business_id from (Business b) where ";
+    var query = "select b.name,b.city,b.state,b.business_id,b.stars from (Business b) where ";
     attrs = req.body['all_attrs'];
     categories = req.body['categories'];
     schedule = req.body['schedule'];
