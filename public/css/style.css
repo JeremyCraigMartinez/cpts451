@@ -31,3 +31,16 @@
 	overflow: scroll;
 	height: 650px;
 }
+
+.business-possible-overflow {
+	text-overflow: ellipsis;
+
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.home-submit {
+	position: relative;
+  top: 20px;	
+}

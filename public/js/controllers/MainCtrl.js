@@ -8,7 +8,7 @@ angular.module('MainCtrl', ['ngRoute'])
 	.controller('MainController', 
 		function($scope, $q, initialize, column1_requests, column2_requests, column3_requests, _) {
 			initialize.get()
-			.success(function(data) {
+			.success(function (data) {
 				$scope.main_business_categories = {};
 				for (each in data) {
 					$scope.main_business_categories[data[each]["main_category"]] = [];
@@ -26,9 +26,6 @@ angular.module('MainCtrl', ['ngRoute'])
 			}
 
 			$scope.col1func = function(category) {
-				console.log($scope.day_of_the_week);
-				console.log($scope.open);
-				console.log($scope.close);
 				if ($scope.main_business_categories[category].length === 0) {
 					column1_requests.get(category)
 					.success(function(data) {
@@ -40,11 +37,17 @@ angular.module('MainCtrl', ['ngRoute'])
 				}
 				else {
 					$scope.main_business_categories[category] = [];
+					$scope.attrs = [];
+					$scope.selected_sub_categories = [];
+					$scope.all_attrs = [];
+					$scope.businesses = [];
 					update_sub_business_categories();
 				}
 			}
 
 			var pop_or_push = function(arr, item) {
+				console.log(arr);
+				console.log(item);
 				if (arr.indexOf(item) > -1) {
 					var index = arr.indexOf(item);
 					arr.splice(index,1);
@@ -59,14 +62,30 @@ angular.module('MainCtrl', ['ngRoute'])
 				pop_or_push($scope.selected_sub_categories, category);
 				column2_requests.post($scope.selected_sub_categories)
 					.success(function(data) {
+						if (!(Object.keys(data).length)) {
+							$scope.businesses = [];
+							$scope.attrs = [];
+							$scope.all_attrs = [];
+						}
 						$scope.attrs = data;
 					});
 			}
 
 			$scope.all_attrs = []
+			$scope.day_of_the_week = ""
+			$scope.open = ""
+			$scope.close = ""
 			$scope.col3func = function(attribute) {
-				pop_or_push($scope.all_attrs, attribute);
-				column3_requests.post($scope.all_attrs, $scope.selected_sub_categories)
+				console.log(attribute);
+				if (attribute != "") {
+					pop_or_push($scope.all_attrs, attribute);
+				}
+				var schedule = {
+					day:   $scope.day_of_the_week,
+					open:  $scope.open,
+					close: $scope.close
+				}
+				column3_requests.post($scope.all_attrs, $scope.selected_sub_categories, schedule)
 					.success(function(data) {
 						$scope.businesses = data;
 					});

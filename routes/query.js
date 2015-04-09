@@ -26,6 +26,7 @@ module.exports = function(app, db) {
   app.post('/col2', function(req, res) {
     if (req.body.length === 0) {
       res.json({});
+      return;
     }
 
     var query = "select distinct(attr_key) from Attributes where ";
@@ -44,20 +45,27 @@ module.exports = function(app, db) {
     var query = "select b.name,b.city,b.state,b.business_id from (Business b) where ";
     attrs = req.body['all_attrs'];
     categories = req.body['categories'];
+    schedule = req.body['schedule'];
+
+    console.log(attrs);
 
     if (attrs.length === 0) {
       res.json({});
+      return;
     }
 
     for (each in attrs) {
       query += "b.business_id in (select a_bid from Attributes where attr_key=\"" + attrs[each] + "\") and "
     }
-
     for (each in categories) {
       query += "b.business_id in (select c_bid from Category where name=\"" + categories[each] + "\") and "
     }
+    if (schedule["day"] != "" && schedule["open"] != "" && schedule["close"] != "") {
+      query += "b.business_id in (select h_bid from Days_of_Week where day=\""+schedule["day"]+"\" and open<=\""+schedule["open"]+"\" and close>=\""+schedule["close"]+"\") and "
+    }
     query = query.substring(0,query.length-5);
 
+    console.log("\n\n" + query);
     db.query(query, function(err,rows){
       if (!err) {
         res.json(rows);
