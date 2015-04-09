@@ -46,8 +46,7 @@ module.exports = function(app, db) {
     attrs = req.body['all_attrs'];
     categories = req.body['categories'];
     schedule = req.body['schedule'];
-
-    console.log(attrs);
+    price_range = req.body['price_range'];
 
     if (attrs.length === 0) {
       res.json({});
@@ -63,6 +62,10 @@ module.exports = function(app, db) {
     if (schedule["day"] != "" && schedule["open"] != "" && schedule["close"] != "") {
       query += "b.business_id in (select h_bid from Days_of_Week where day=\""+schedule["day"]+"\" and open<=\""+schedule["open"]+"\" and close>=\""+schedule["close"]+"\") and "
     }
+    if (price_range) {
+      query += "b.business_id in (select a.a_bid from (Attributes a, Attributes_Int_Value i) where a.attr_id=i.attr_id and a.attr_key=\"Price Range\" and i.value=\""+price_range+"\") and "
+    }
+    //select a.a_bid from (Attributes a, Attributes_Int_Value i) where a.attr_id=i.attr_id and a.attr_key="Price Range";
     query = query.substring(0,query.length-5);
 
     console.log("\n\n" + query);

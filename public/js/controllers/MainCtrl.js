@@ -67,6 +67,18 @@ angular.module('MainCtrl', ['ngRoute'])
 							$scope.attrs = [];
 							$scope.all_attrs = [];
 						}
+						var i;
+						for (each in data)
+							if (data[each]['attr_key'] == "Price Range") i=each;
+
+						if (i) {
+							var index = data.indexOf(i);
+							data.splice(index,1);
+							data.splice(i,0,{attr_key:"Price Range 4"});
+							data.splice(i,0,{attr_key:"Price Range 3"});
+							data.splice(i,0,{attr_key:"Price Range 2"});
+							data.splice(i,0,{attr_key:"Price Range 1"});
+						}
 						$scope.attrs = data;
 					});
 			}
@@ -75,17 +87,24 @@ angular.module('MainCtrl', ['ngRoute'])
 			$scope.day_of_the_week = ""
 			$scope.open = ""
 			$scope.close = ""
+			$scope.price_range = "";
 			$scope.col3func = function(attribute) {
 				console.log(attribute);
 				if (attribute != "") {
-					pop_or_push($scope.all_attrs, attribute);
+					if (attribute.startsWith("Price Range")) {
+						if ($scope.price_range) $scope.price_range = ""
+						else $scope.price_range = parseInt(attribute.substring(attribute.length-1,attribute.length));
+					}
+					else {
+						pop_or_push($scope.all_attrs, attribute);
+					}
 				}
 				var schedule = {
 					day:   $scope.day_of_the_week,
 					open:  $scope.open,
 					close: $scope.close
 				}
-				column3_requests.post($scope.all_attrs, $scope.selected_sub_categories, schedule)
+				column3_requests.post($scope.all_attrs, $scope.selected_sub_categories, schedule, $scope.price_range)
 					.success(function(data) {
 						$scope.businesses = data;
 					});

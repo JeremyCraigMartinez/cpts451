@@ -28,8 +28,8 @@ angular.module('MainService', [])
 	.factory('column3_requests', 
 		function($http){
 				return {
-					post: function(all_attrs, categories, schedule){
-						return $http.post('/col3', {all_attrs:all_attrs, categories:categories, schedule:schedule});
+					post: function(all_attrs, categories, schedule, price_range){
+						return $http.post('/col3', {all_attrs:all_attrs, categories:categories, schedule:schedule, price_range:price_range});
 					}
 				}
 			});
