@@ -44,23 +44,28 @@ module.exports = function(app, db) {
 
   app.post('/col3', function(req, res) {
     var query = "select b.name,b.city,b.state,b.business_id,b.stars from (Business b) where ";
-    attrs = req.body['all_attrs'];
-    categories = req.body['categories'];
-    schedule = req.body['schedule'];
-    price_range = req.body['price_range'];
+    var attrs = req.body['all_attrs'];
+    var categories = req.body['categories'];
+    var schedule = req.body['schedule'];
+    var price_range = req.body['price_range'];
+    var all_or_any = schedule["all_or_any"] || "AND"
 
     if (attrs.length === 0) {
       res.json({});
       return;
     }
 
+    query += "("
     for (each in attrs) {
-      query += "b.business_id in (select a_bid from Attributes where attr_key=\"" + attrs[each] + "\") and "
+      query += "b.business_id in (select a_bid from Attributes where attr_key=\"" + attrs[each] + "\") "+all_or_any+" "
     }
+    query = query.substring(0,query.length-4) + ") AND "
     for (each in categories) {
       query += "b.business_id in (select c_bid from Category where name=\"" + categories[each] + "\") and "
     }
-    if (schedule["day"] != "" && schedule["open"] != "" && schedule["close"] != "") {
+    if (schedule["day"] != "" && 
+        schedule["open"] != "" && 
+        schedule["close"] != "") {
       query += "b.business_id in (select h_bid from Days_of_Week where day=\""+schedule["day"]+"\" and open<=\""+schedule["open"]+"\" and close>=\""+schedule["close"]+"\") and "
     }
     if (price_range) {

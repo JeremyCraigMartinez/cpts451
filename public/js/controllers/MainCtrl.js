@@ -88,6 +88,7 @@ angular.module('MainCtrl', ['ngRoute'])
 			$scope.open = ""
 			$scope.close = ""
 			$scope.price_range = "";
+			$scope.all_or_any = "";
 			$scope.col3func = function(attribute) {
 				console.log(attribute);
 				if (attribute != "") {
@@ -100,9 +101,10 @@ angular.module('MainCtrl', ['ngRoute'])
 					}
 				}
 				var schedule = {
-					day:   $scope.day_of_the_week,
-					open:  $scope.open,
-					close: $scope.close
+					all_or_any: $scope.all_or_any,
+					day:   			$scope.day_of_the_week,
+					open:  			$scope.open,
+					close: 			$scope.close
 				}
 				column3_requests.post($scope.all_attrs, $scope.selected_sub_categories, schedule, $scope.price_range)
 					.success(function(data) {

@@ -44,9 +44,6 @@
 		<option value="Friday">Friday</option>
 		<option value="Saturday">Saturday</option>
 		<option value="Sunday">Sunday</option>
-		<option value="Weekend">Weekend</option>
-		<option value="Weekday">Weekday</option>
-		<option value="All Days">All Days</option>
 	</select>
 </div>
 
@@ -114,9 +111,10 @@
 
 <div class="col-md-6 col-sm-6 col-xs-7 col-lg-6">
 	<p>Search for:</p>
-	<select ng-model="search_for">
+	<select ng-model="all_or_any">
 		<option value=""></option>
-		<option value="all_attributes" selected>All attributes</option>
+		<option value="AND" selected>All attributes</option>
+		<option value="OR" selected>Any attributes</option>
 	</select>
 </div>
 
