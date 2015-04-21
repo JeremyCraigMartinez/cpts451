@@ -9,8 +9,9 @@ module.exports = function(app, db) {
   // sample api route
   app.get('/initialize', function(req, res) {
     db.query("select * from main_categories",function(err,rows){
-      if (!err) res.json(rows); // return all nerds in JSON format          
-      else console.log("you need to run \. "+__dirname+"/../create_main_categories.sql");
+      if (!err) return res.json(rows); // return all nerds in JSON format          
+      console.log(err);
+      console.log("you need to run \. "+__dirname+"/../create_main_categories.sql");
     });
   });
 
