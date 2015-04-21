@@ -1,19 +1,15 @@
-// public/js/appRoutes.js
+    // public/js/appRoutes.js
     angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-
-    $routeProvider
-
+      $routeProvider
         // home page
         .when('/', {
-            templateUrl: 'views/home.html',
-            controller: 'MainController'
+          templateUrl: 'views/home.html',
+          controller: 'MainController'
         })
         .when('/business/:business_id', {
         	templateUrl: 'views/review.html',
         	controller: 'ReviewController'
         })
         .otherwise({redirectTo: '/'});
-
-    $locationProvider.html5Mode(true);
-
-}]);
+      $locationProvider.html5Mode(false);
+    }]);
