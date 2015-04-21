@@ -1,9 +1,0 @@
-yelp*.json
-*.pyc
-creds*
-milestone2*
-node_modules*
-.bowerrc
-creds.json
-public/libs
-nohup.out
