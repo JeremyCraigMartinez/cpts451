@@ -7,6 +7,5 @@ angular.module('ReviewCtrl', ['ngRoute'])
 				for (obj in data){
 					$scope.reviews.push(data[obj]);
 				}
-				console.log($scope.reviews)
 			});
 		});

@@ -46,8 +46,6 @@ angular.module('MainCtrl', ['ngRoute'])
 			}
 
 			var pop_or_push = function(arr, item) {
-				console.log(arr);
-				console.log(item);
 				if (arr.indexOf(item) > -1) {
 					var index = arr.indexOf(item);
 					arr.splice(index,1);
@@ -90,7 +88,6 @@ angular.module('MainCtrl', ['ngRoute'])
 			$scope.price_range = "";
 			$scope.all_or_any = "";
 			$scope.col3func = function(attribute) {
-				console.log(attribute);
 				if (attribute != "") {
 					if (attribute.startsWith("Price Range")) {
 						if ($scope.price_range) $scope.price_range = ""
