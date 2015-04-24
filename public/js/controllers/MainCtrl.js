@@ -6,7 +6,7 @@ underscore.factory('_', function() {
 
 angular.module('MainCtrl', ['ngRoute'])
 	.controller('MainController', 
-		function($scope, $q, initialize, column1_requests, column2_requests, column3_requests, _) {
+		function($scope, $q, $rootScope, initialize, column1_requests, column2_requests, column3_requests, _, usSpinnerService) {
 			initialize.get()
 			.success(function (data) {
 				$scope.main_business_categories = {};
@@ -14,6 +14,30 @@ angular.module('MainCtrl', ['ngRoute'])
 					$scope.main_business_categories[data[each]["main_category"]] = [];
 				}
 			})
+
+			//////////////////////
+			$scope.startSpin = function() {
+	      if (!$scope.spinneractive) {
+	        usSpinnerService.spin('spinner-1');
+	        $scope.startcounter++;
+	      }
+	    };
+
+	    $scope.stopSpin = function() {
+	      if ($scope.spinneractive) {
+	        usSpinnerService.stop('spinner-1');
+	      }
+	    };
+	    $scope.spinneractive = false;
+
+	    $rootScope.$on('us-spinner:spin', function(event, key) {
+	      $scope.spinneractive = true;
+	    });
+
+	    $rootScope.$on('us-spinner:stop', function(event, key) {
+	      $scope.spinneractive = false;
+	    });
+	    //////////////////////
 
 			$scope.sub_business_categories = [];
 
@@ -103,8 +127,10 @@ angular.module('MainCtrl', ['ngRoute'])
 					open:  			$scope.open,
 					close: 			$scope.close
 				}
+				$scope.startSpin();
 				column3_requests.post($scope.all_attrs, $scope.selected_sub_categories, schedule, $scope.price_range)
 					.success(function(data) {
+						$scope.stopSpin();
 						$scope.businesses = data;
 					});
 			}

@@ -5,5 +5,14 @@ milestone2*
 node_modules*
 .bowerrc
 creds.json
-public/libs
+
+#installed by=> bower install, and moved here
+public/libs/angular
+public/libs/angular-route
+public/libs/animate.css
+public/libs/bootstrap
+public/libs/jquery
+public/libs/underscore
+public/libs/font-awesome
+
 nohup.out

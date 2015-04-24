@@ -2,4 +2,5 @@
 angular.module('sampleApp', 
 	['ngRoute', 'appRoutes', 'MainCtrl', 
 	 'MainService','ReviewCtrl','ReviewService',
-	 'underscore','UserCtrl','UserService']);
+	 'underscore','UserCtrl','UserService',
+	 'angularSpinner', 'RefCtrl']);
