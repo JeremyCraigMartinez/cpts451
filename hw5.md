@@ -32,10 +32,10 @@
 		2. 3 reads, 1 write
 	- Insert a data entry with key 7 into the original tree
 		1. See Appendix A Figure 3.2
-		2. Don't Know
+		2. 5 reads, 6 writes
 	- Delete a data entry with key 18 from the original tree.
 		1. See Appendix A Figure 3.3
-		2. Don't Know
+		2. 3 reads, 2 writes
 4. (15 points)
 	- (n-1) x 32 + (n) x 8 <= 16K __n≈410__
 	- log410(25600) = 1.68718. __2 Levels__
